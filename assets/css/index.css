@@ -11975,4 +11975,22 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+img {
+  height: 48%;
+  width: 27%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  min-height: 100px;
+}
+
+.elevator-button {
+  background-color: #007BFF;
+  color: #fff;
 }/*# sourceMappingURL=index.css.map */
