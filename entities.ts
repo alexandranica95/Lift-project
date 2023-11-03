@@ -7,10 +7,19 @@ export class ElevatorController{
     elevators: Elevator[];
     levels: Level[];
 
-    callElevator(){}
+    callElevator(){
 
-    pickupElevator(destination: Level): Elevator{
-        return this.elevators[0];
+    }
+
+    pickupElevator(destination: Level): Elevator[]{
+
+       
+    const availableElevator: Elevator[] = this.elevators.filter(e => e.state = State.Available)
+    console.log("========this are the available elevators=========" + availableElevator)
+    
+    // // const minimalNumber = Math.min(availableElevator)
+    //     const theMinimalNumber = availableElevator.map(e => e.currentLevel - e.signals)
+    return availableElevator;
     }
 }
 
@@ -20,19 +29,25 @@ export class Elevator {
         this.id = id;
         this.state = State.Available;
         this.signals = [];
-        this.currentLevel = {value: 0};
+        this.currentLevel = {value: 0}; 
     }
 
-    id: string
-    state: State
-    signals: Level[]
-    currentLevel: Level
+    id: string;
+    state: State;
+    signals: Level[];
+    currentLevel: Level;
+
+    toString(): string{
+        return `Elevator: ${this.id} with state ${this.state}`;
+    }
 
     setLevel(levelValue: number){
         this.currentLevel.value = levelValue;
     }
 
-    move(){}
+    move(){
+        
+    }
 }
 
 export interface Level{
@@ -41,6 +56,6 @@ export interface Level{
 
 export enum State {
     Available = 'Available',
-    MovingUp = 'Up',
-    MovingDown = 'Down',
+    Moving = 'Moving',
 }
+

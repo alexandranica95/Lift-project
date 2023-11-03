@@ -1,21 +1,54 @@
 @import "./node_modules/bootstrap/scss/bootstrap";
 
-img{
-    height: 48%;
-    width: 27%;
+//main coontainer
+.main-div{
+    background-color:  #F5F5F5;
+    height: 100vh;
 }
 
-.column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-    min-height: 100px;
+//left and right buttons, elevator interior
+.btn-secondary{
+    border-radius: 15%;
+    color: rgb(0, 0, 0);
+    background-color: #a8b0a8;
 }
 
+.elevator-button{
+    border: 3px black;
+}
+//middle column buttons to call elevators
+.middle-buttons{
+    border-radius: 15%;
+    border: none;
+    color: rgb(0, 0, 0);
+    background-color: #b3d5b3;
+}
 
-.elevator-button {
-    background-color: #007BFF;
-    color: #fff;
+.middle-buttons:hover{
+ background-color: rgb(73, 127, 73);
+}
+
+//mobile order
+@media (max-width: 768px) {
+    .A {
+      order: 2;
+      position:absolute;
+      bottom:0;    
+    }
+    .B {
+        order: 1;
+      }
+      .C {
+        order: 2;
+        position:absolute;
+        right:0;
+        bottom:0;
+      }
+      .col-5 .img-style{
+        width: 75%;
+      }
+}
+
+.img-style{
+    width:30%;
 }

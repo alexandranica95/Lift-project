@@ -11976,21 +11976,51 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-img {
-  height: 48%;
-  width: 27%;
+.main-div {
+  background-color: #F5F5F5;
+  height: 100vh;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-  min-height: 100px;
+.btn-secondary {
+  border-radius: 15%;
+  color: rgb(0, 0, 0);
+  background-color: #a8b0a8;
 }
 
 .elevator-button {
-  background-color: #007BFF;
-  color: #fff;
+  border: 3px black;
+}
+
+.middle-buttons {
+  border-radius: 15%;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: #b3d5b3;
+}
+
+.middle-buttons:hover {
+  background-color: rgb(73, 127, 73);
+}
+
+@media (max-width: 768px) {
+  .A {
+    order: 2;
+    position: absolute;
+    bottom: 0;
+  }
+  .B {
+    order: 1;
+  }
+  .C {
+    order: 2;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .col-5 .img-style {
+    width: 75%;
+  }
+}
+.img-style {
+  width: 30%;
 }/*# sourceMappingURL=index.css.map */

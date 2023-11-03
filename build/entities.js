@@ -3,9 +3,14 @@ export class ElevatorController {
         this.elevators = elevators;
         this.levels = levels;
     }
-    callElevator() { }
+    callElevator() {
+    }
     pickupElevator(destination) {
-        return this.elevators[0];
+        const availableElevator = this.elevators.filter(e => e.state = State.Available);
+        console.log("========this are the available elevators=========" + availableElevator);
+        // // const minimalNumber = Math.min(availableElevator)
+        //     const theMinimalNumber = availableElevator.map(e => e.currentLevel - e.signals)
+        return availableElevator;
     }
 }
 export class Elevator {
@@ -15,14 +20,17 @@ export class Elevator {
         this.signals = [];
         this.currentLevel = { value: 0 };
     }
+    toString() {
+        return `Elevator: ${this.id} with state ${this.state}`;
+    }
     setLevel(levelValue) {
         this.currentLevel.value = levelValue;
     }
-    move() { }
+    move() {
+    }
 }
 export var State;
 (function (State) {
     State["Available"] = "Available";
-    State["MovingUp"] = "Up";
-    State["MovingDown"] = "Down";
+    State["Moving"] = "Moving";
 })(State || (State = {}));
