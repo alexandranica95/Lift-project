@@ -11,7 +11,7 @@ export class ElevatorController{
 
     }
 
-    pickupElevator(destination: Level): Elevator[]{
+    pickupElevator(destination: Level): Elevator{
 
        
     const availableElevator: Elevator[] = this.elevators.filter(e => e.state = State.Available)
@@ -19,7 +19,7 @@ export class ElevatorController{
     
     // // const minimalNumber = Math.min(availableElevator)
     //     const theMinimalNumber = availableElevator.map(e => e.currentLevel - e.signals)
-    return availableElevator;
+    return availableElevator[0];
     }
 }
 

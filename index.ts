@@ -1,10 +1,4 @@
 import { ElevatorController, Elevator, Level, State } from './entities.js';
-import { RunTests,
-  
-} from './tests.js'
-
-
-RunTests();
 
 
 // Initial State
