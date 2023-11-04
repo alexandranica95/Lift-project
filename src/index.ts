@@ -9,3 +9,4 @@ const levels: Level[] = [{value: 0}, {value: 1}, {value: 2}, {value: 3}, {value:
 const elevatorController = new ElevatorController([elevator1, elevator2], levels)
 
 
+console.log("ceva")

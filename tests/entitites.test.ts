@@ -1,4 +1,4 @@
-import { ElevatorController, Elevator, Level, State } from './entities';
+import { ElevatorController, Elevator, Level, State } from '../src/entities';
 
 
 describe('Scenario 1 - All elevators available', () => {

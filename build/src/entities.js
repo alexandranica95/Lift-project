@@ -10,7 +10,7 @@ export class ElevatorController {
         console.log("========this are the available elevators=========" + availableElevator);
         // // const minimalNumber = Math.min(availableElevator)
         //     const theMinimalNumber = availableElevator.map(e => e.currentLevel - e.signals)
-        return availableElevator;
+        return availableElevator[0];
     }
 }
 export class Elevator {
