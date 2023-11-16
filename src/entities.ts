@@ -7,7 +7,14 @@ export class ElevatorController {
   elevators: Elevator[];
   levels: Level[];
 
-  callElevator() {}
+  async callElevator(destination: Level) {
+    const elevator: Elevator = this.pickupElevator(destination);
+    elevator.levelsToGoTo.push(destination);
+
+    if(elevator.levelsToGoTo.length === 1){
+      await elevator.move();
+    }
+  }
 
   pickupElevator(destination: Level): Elevator {
     const availableElevator = this.findClosestAvailableElevator(destination);
@@ -102,7 +109,32 @@ export class Elevator {
     return this.levelsToGoTo.length === 0? State.Available: State.Moving
   }
 
-  move() {}
+  async move() {
+    while(this.levelsToGoTo.length > 0){
+      await this.moveToLevel(this.levelsToGoTo[0]);
+      this.levelsToGoTo.shift();
+    }
+  }
+
+  private async moveToLevel(destination: Level) {
+    const direction = this.currentLevel > destination? (-1): 1;
+
+
+    while(this.currentLevel.value !== destination.value){
+      await this.moveByOneLevel(direction);
+    }
+  }
+
+  private moveByOneLevel(direction: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+       this.currentLevel.value = this.currentLevel.value + direction;
+        console.log(`i am elevator ${this.id} and i am now at level ${this.currentLevel.value}`);
+        resolve();
+      }, 2000);
+    });
+    
+  }
 }
 
 export interface Level {
@@ -113,3 +145,5 @@ export enum State {
   Available = "Available",
   Moving = "Moving",
 }
+
+

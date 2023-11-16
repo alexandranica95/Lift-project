@@ -11977,7 +11977,6 @@ textarea.form-control-lg {
   }
 }
 .main-div {
-  background-color: #F5F5F5;
   height: 100vh;
 }
 
@@ -12018,7 +12017,7 @@ textarea.form-control-lg {
     bottom: 0;
   }
   .col-5 .img-style {
-    width: 75%;
+    width: 70%;
   }
 }
 .img-style {
