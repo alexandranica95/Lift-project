@@ -11855,51 +11855,98 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.main-div {
-  background-color: #F5F5F5;
-  height: 100vh;
+.container {
+  max-width: 960px;
+  margin: 20px auto;
 }
 
-.btn-secondary {
-  border-radius: 15%;
-  color: rgb(0, 0, 0);
-  background-color: #a8b0a8;
+.building {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 800px;
+}
+
+.elevator-system {
+  display: flex;
+  align-items: flex-end;
+  margin: 0 30px;
+}
+
+.elevator-shaft {
+  width: 120px;
+  height: 800px;
+  border: 3px solid #000;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.elevator {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 14.28%;
+  background-color: #ddd;
+  border: 1px solid #bbb;
+}
+
+.elevator-controls {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.elevator-buttons {
+  display: flex;
+  flex-direction: row; /* Align items in a row */
+  flex-wrap: wrap; /* Allow items to wrap onto the next line */
+  justify-content: flex-start; /* Align items at the start of the container */
+  gap: 10px; /* Space between items */
 }
 
 .elevator-button {
-  border: 3px black;
-}
-
-.middle-buttons {
-  border-radius: 15%;
-  border: none;
-  color: rgb(0, 0, 0);
-  background-color: #b3d5b3;
-}
-
-.middle-buttons:hover {
-  background-color: rgb(73, 127, 73);
-}
-
-@media (max-width: 768px) {
-  .A {
-    order: 2;
-    position: absolute;
-    bottom: 0;
-  }
-  .B {
-    order: 1;
-  }
-  .C {
-    order: 2;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  .col-5 .img-style {
-    width: 75%;
-  }
-}
-.img-style {
+  flex: 0 1 calc(50% - 10px); /* Flex grow, flex shrink, and flex-basis */
+  /* Adjust the calc() formula as needed to account for the gap and ensure 3 items per row */
+  /* The 10px in the calc() formula accounts for the gap; adjust this value based on your actual gap */
+  text-align: center; /* Center the text within each button */
+  /* Additional styling for buttons */
   width: 40%;
+}
+
+.queued-levels {
+  display: flex;
+  flex-direction: row; /* Align items in a row */
+  flex-wrap: wrap; /* Allow items to wrap onto the next line */
+  justify-content: flex-start; /* Align items at the start of the container */
+  gap: 10px; /* Space between items */
+  font-weight: bold; /* Makes the text bold */
+  color: #007BFF; /* Sets the text color; this is a shade of blue */
+  font-size: large;
+}
+
+.queue-display {
+  font-size: 0.8rem;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.floor-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 800px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  gap: 10%;
+}
+
+.floor-button, .btn-secondary {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0; /* Adjust spacing */
 }/*# sourceMappingURL=index.css.map */
