@@ -91,6 +91,50 @@ describe('Scenario 3 - None available', () => {
         expect(result).toBe(elevator1);
     });
 });
+describe('Scenario 4 - All elevators available', () => {
+    test('all elevators level 0, called at level 5', async () => {
+        // Arrange
+        const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
+        elevator1.setLevel(0);
+        elevator2.setLevel(0);
+        const elevatorId = elevator1.getId();
+        const levelToGo = { value: 5 };
+        //Act
+        await elevatorController.callElevatorBy(elevatorId, levelToGo);
+        //Assert
+        expect(elevator1.currentLevel.value).toBe(5);
+    });
+    test('elevators on differents levels, called at level 4', async () => {
+        // Arrange
+        const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
+        elevator1.setLevel(1);
+        elevator2.setLevel(5);
+        const elevatorId = elevator2.getId();
+        const levelToGo = { value: 4 };
+        //Act
+        await elevatorController.callElevatorBy(elevatorId, levelToGo);
+        //Assert
+        expect(elevator2.currentLevel.value).toBe(4);
+    });
+});
+describe('Scenario 5 - elevators moving', () => {
+    test.only('all elevators on differents levels, elevators called at', async () => {
+        // Arrange
+        const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
+        elevator1.setLevel(2);
+        elevator2.setLevel(1);
+        //Act
+        const promises = [];
+        promises.push(elevatorController.callElevator({ value: 4 }));
+        promises.push(elevatorController.callElevator({ value: 3 }));
+        promises.push(elevatorController.callElevator({ value: 0 }));
+        // Wait for all promises to resolve
+        await Promise.all(promises);
+        //Assert
+        expect(elevator1.currentLevel.value).toBe(4);
+        expect(elevator2.currentLevel.value).toBe(0);
+    });
+});
 function InitialSetupWithTwoElevators() {
     const elevator1 = new Elevator('one');
     const elevator2 = new Elevator('two');

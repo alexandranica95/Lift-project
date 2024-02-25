@@ -8,7 +8,23 @@ export class ElevatorController {
   levels: Level[];
 
   async callElevator(destination: Level) {
-    const elevator: Elevator = this.pickupElevator(destination);
+    const elevator = this.pickupElevator(destination);
+
+    elevator.levelsToGoTo.push(destination);
+
+    if(elevator.levelsToGoTo.length === 1){
+      await elevator.move();
+    }
+  }
+  
+  async callElevatorBy(elevatorId: string, destination: Level) {
+    const elevator = this.elevators.find(e => e.id === elevatorId);
+    
+    if(!elevator){
+      console.log(`Unkown elevator: ${elevatorId}`);
+      return;
+    }
+
     elevator.levelsToGoTo.push(destination);
 
     if(elevator.levelsToGoTo.length === 1){
@@ -93,9 +109,14 @@ export class Elevator {
     this.currentLevel = { value: 0 };
   }
 
-  private id: string;
+  id: string;
   levelsToGoTo: Level[];
   currentLevel: Level;
+
+
+  getId(): string {
+    return this.id;
+  }
 
   toString(): string {
     return `Elevator: ${this.id} with state ${this.getState()}`;
@@ -117,15 +138,14 @@ export class Elevator {
   }
 
   private async moveToLevel(destination: Level) {
-    const direction = this.currentLevel > destination? (-1): 1;
-
-
+    const direction = this.currentLevel.value > destination.value? (-1): 1;
+    
     while(this.currentLevel.value !== destination.value){
       await this.moveByOneLevel(direction);
     }
   }
 
-  private moveByOneLevel(direction: number): Promise<void> {
+  private async moveByOneLevel(direction: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
        this.currentLevel.value = this.currentLevel.value + direction;
