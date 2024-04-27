@@ -127,7 +127,7 @@ describe('Scenario 4 - All elevators available', () => {
     }));
 });
 describe('Scenario 5 - elevators moving', () => {
-    test.only('all elevators on differents levels, elevators called at', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('all elevators on differents levels, elevators called at', () => __awaiter(void 0, void 0, void 0, function* () {
         // Arrange
         const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
         elevator1.setLevel(2);

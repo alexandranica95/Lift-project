@@ -120,11 +120,20 @@ export class Elevator {
     }
     moveToLevel(destination) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.elevatorAnimation(destination);
             const direction = this.currentLevel.value > destination.value ? -1 : 1;
             while (this.currentLevel.value !== destination.value) {
                 yield this.moveByOneLevel(direction);
             }
         });
+    }
+    elevatorAnimation(destination) {
+        let whereToGo = destination.value * 114;
+        // Accessing CSS properties of an element
+        const elevator = document.getElementById("elevator-" + this.id);
+        elevator.style.transform = `translateY(-${whereToGo}px)`;
+        let timeToGo = Math.abs((destination.value - this.currentLevel.value) * 2);
+        elevator.style.transition = `transform ${timeToGo}s linear`;
     }
     moveByOneLevel(direction) {
         return __awaiter(this, void 0, void 0, function* () {
