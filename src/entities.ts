@@ -7,10 +7,10 @@ export class ElevatorController {
   elevators: Elevator[];
   levels: Level[];
 
-  addLevelToGoLabel(buttonText: string, labelClass: string) {
+  addLevelToGoLabel(destination: string, labelClass: string) {
     const createNewDiv = document.createElement("div");
     createNewDiv.className = "level-queued";
-    createNewDiv.textContent = buttonText;
+    createNewDiv.textContent = destination;
     document.querySelector(labelClass)?.appendChild(createNewDiv);
   }
 
@@ -18,12 +18,21 @@ export class ElevatorController {
     const elevator = this.pickupElevator(destination);
 
     elevator.levelsToGoTo.push(destination);
-    this.addLevelToGoLabel(destination.value.toString(), `label`);
+
+    let elevatorLabel = "";
+    if (elevator.id === "one") {
+      elevatorLabel = ".one-label";
+    } else {
+      elevatorLabel = ".two-label";
+    }
+
+    this.addLevelToGoLabel(destination.value.toString(), elevatorLabel);
 
     if (elevator.levelsToGoTo.length === 1) {
       await elevator.move();
     }
   }
+
   async callElevatorBy(elevatorId: string, destination: Level) {
     const elevator = this.elevators.find((e) => e.id === elevatorId);
 
@@ -33,6 +42,7 @@ export class ElevatorController {
     }
 
     elevator.levelsToGoTo.push(destination);
+
     this.addLevelToGoLabel(
       destination.value.toString(),
       `.${elevatorId}-label`

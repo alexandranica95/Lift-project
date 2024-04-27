@@ -12,18 +12,25 @@ export class ElevatorController {
         this.elevators = elevators;
         this.levels = levels;
     }
-    addLevelToGoLabel(buttonText, labelClass) {
+    addLevelToGoLabel(destination, labelClass) {
         var _a;
         const createNewDiv = document.createElement("div");
         createNewDiv.className = "level-queued";
-        createNewDiv.textContent = buttonText;
+        createNewDiv.textContent = destination;
         (_a = document.querySelector(labelClass)) === null || _a === void 0 ? void 0 : _a.appendChild(createNewDiv);
     }
     callElevator(destination) {
         return __awaiter(this, void 0, void 0, function* () {
             const elevator = this.pickupElevator(destination);
             elevator.levelsToGoTo.push(destination);
-            this.addLevelToGoLabel(destination.value.toString(), `label`);
+            let elevatorLabel = "";
+            if (elevator.id === "one") {
+                elevatorLabel = ".one-label";
+            }
+            else {
+                elevatorLabel = ".two-label";
+            }
+            this.addLevelToGoLabel(destination.value.toString(), elevatorLabel);
             if (elevator.levelsToGoTo.length === 1) {
                 yield elevator.move();
             }
