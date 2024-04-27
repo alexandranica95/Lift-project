@@ -1,38 +1,86 @@
-import { ElevatorController, Elevator } from './entities.js';
+import { ElevatorController, Elevator } from "./entities.js";
 // Initial State
-const elevator1 = new Elevator('one');
-const elevator2 = new Elevator('two');
-const levels = [{ value: 0 }, { value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }];
+const levels = [
+    { value: 0 },
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+    { value: 4 },
+    { value: 5 },
+    { value: 6 },
+];
+const elevator1 = new Elevator("one");
+const elevator2 = new Elevator("two");
 const elevatorController = new ElevatorController([elevator1, elevator2], levels);
-const button5 = document.querySelector('#level-5');
-button5?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 5 }).then(() => { });
-});
-const button4 = document.querySelector('#level-4');
-button4?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 4 }).then(() => { });
-});
-const button3 = document.querySelector('#level-3');
-button3?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 3 }).then(() => { });
-});
-const button2 = document.querySelector('#level-2');
-button2?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 2 }).then(() => { });
-});
-const button1 = document.querySelector('#level-1');
-button1?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 1 }).then(() => { });
-});
-const button0 = document.querySelector('#level-0');
-button0?.addEventListener('click', () => {
-    elevatorController.callElevator({ value: 0 }).then(() => { });
-});
-const floors = Array.from(document.querySelectorAll('.floor'));
-const elevatorOne = document.querySelector('#elevator-1');
-const moveElevator = (event) => {
-    const floor = event.currentTarget;
-    const topPos = floor.getBoundingClientRect().top + window.pageYOffset;
-    gsap.to(elevatorOne, { top: topPos, duration: 2 }); //GSAP animation
-};
-floors.forEach((floor) => floor.addEventListener('click', moveElevator));
+// left floor buttons click event
+const leftButtons = document.querySelectorAll(".left-buttons > .btn");
+for (const btn of leftButtons) {
+    const levelNumber = parseInt(btn.getAttribute("data-floor"));
+    btn.addEventListener("click", function (event) {
+        //functia apelata pentru fiecare click button parte stanga
+        elevatorController
+            .callElevatorBy("one", { value: levelNumber })
+            .then(() => {
+            console.log("Call elevator completed successfully.");
+        })
+            .catch((error) => {
+            console.error("Error calling elevator:", error);
+        });
+        //console.log(elevator1.levelsToGoTo.map((e) => e.value));
+    });
+}
+// right floor buttons click event
+const rightButtons = document.querySelectorAll(".right-buttons > .btn");
+for (const btn of rightButtons) {
+    const levelNumber = parseInt(btn.getAttribute("data-floor"));
+    btn.addEventListener("click", function (event) {
+        elevatorController
+            .callElevatorBy("two", { value: levelNumber })
+            .then(() => {
+            console.log("Call elevator completed successfully.");
+        })
+            .catch((error) => {
+            console.error("Error calling elevator:", error);
+        });
+    });
+}
+// central floor buttons click event
+const floorsButtons = document.querySelectorAll(".floor-buttons > .btn");
+for (const btn of floorsButtons) {
+    const levelNumber = parseInt(btn.getAttribute("data-floor"));
+    btn.addEventListener("click", function (event) {
+        elevatorController
+            .callElevator({ value: levelNumber })
+            .then(() => {
+            console.log("Call elevator completed successfully.");
+        })
+            .catch((error) => {
+            console.error("Error calling elevator:", error);
+        });
+    });
+}
+// levels label
+const leftButtonsClicked = document.querySelectorAll(".left-buttons [data-floor]");
+// Iterate over the buttons and attach event listener
+// function addLevelToGoLabel(buttonText: string, labelClass: string) {
+//   const createNewDiv = document.createElement("div");
+//   createNewDiv.className = "level-queued";
+//   createNewDiv.textContent = buttonText;
+//   document.querySelector(labelClass)?.appendChild(createNewDiv);
+// }
+// leftButtonsClicked.forEach((button) => {
+//   button.addEventListener("click", (event) => {
+//     const clickedButton = event.target as HTMLElement;
+//     addLevelToGoLabel(button.getAttribute("data-floor")!, ".left-label");
+//     addLevelToGoLabel(button.getAttribute("data-floor")!, ".right-label");
+//   });
+// });
+// const firstFloor = document.querySelector(".floor-buttons :nth-child(7)");
+// firstFloor?.addEventListener("click", (event) => {
+//   removeDestination(".two-label");
+//   function removeDestination(labelClass: string) {
+//     const divChild = document.querySelector(labelClass);
+//     divChild?.removeChild(divChild.querySelectorAll("div")[0]);
+//   }
+// });
+// destinationsCollect();

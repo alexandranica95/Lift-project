@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { ElevatorController, Elevator } from '../src/entities';
 describe('Scenario 1 - All elevators available', () => {
     test('all elevators level 0, called at level 2', () => {
@@ -92,7 +101,7 @@ describe('Scenario 3 - None available', () => {
     });
 });
 describe('Scenario 4 - All elevators available', () => {
-    test('all elevators level 0, called at level 5', async () => {
+    test('all elevators level 0, called at level 5', () => __awaiter(void 0, void 0, void 0, function* () {
         // Arrange
         const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
         elevator1.setLevel(0);
@@ -100,11 +109,11 @@ describe('Scenario 4 - All elevators available', () => {
         const elevatorId = elevator1.getId();
         const levelToGo = { value: 5 };
         //Act
-        await elevatorController.callElevatorBy(elevatorId, levelToGo);
+        yield elevatorController.callElevatorBy(elevatorId, levelToGo);
         //Assert
         expect(elevator1.currentLevel.value).toBe(5);
-    });
-    test('elevators on differents levels, called at level 4', async () => {
+    }));
+    test('elevators on differents levels, called at level 4', () => __awaiter(void 0, void 0, void 0, function* () {
         // Arrange
         const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
         elevator1.setLevel(1);
@@ -112,13 +121,13 @@ describe('Scenario 4 - All elevators available', () => {
         const elevatorId = elevator2.getId();
         const levelToGo = { value: 4 };
         //Act
-        await elevatorController.callElevatorBy(elevatorId, levelToGo);
+        yield elevatorController.callElevatorBy(elevatorId, levelToGo);
         //Assert
         expect(elevator2.currentLevel.value).toBe(4);
-    });
+    }));
 });
 describe('Scenario 5 - elevators moving', () => {
-    test.only('all elevators on differents levels, elevators called at', async () => {
+    test.only('all elevators on differents levels, elevators called at', () => __awaiter(void 0, void 0, void 0, function* () {
         // Arrange
         const { elevator1, elevator2, elevatorController } = InitialSetupWithTwoElevators();
         elevator1.setLevel(2);
@@ -129,11 +138,11 @@ describe('Scenario 5 - elevators moving', () => {
         promises.push(elevatorController.callElevator({ value: 3 }));
         promises.push(elevatorController.callElevator({ value: 0 }));
         // Wait for all promises to resolve
-        await Promise.all(promises);
+        yield Promise.all(promises);
         //Assert
         expect(elevator1.currentLevel.value).toBe(4);
         expect(elevator2.currentLevel.value).toBe(0);
-    });
+    }));
 });
 function InitialSetupWithTwoElevators() {
     const elevator1 = new Elevator('one');

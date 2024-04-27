@@ -7,27 +7,38 @@ export class ElevatorController {
   elevators: Elevator[];
   levels: Level[];
 
+  addLevelToGoLabel(buttonText: string, labelClass: string) {
+    const createNewDiv = document.createElement("div");
+    createNewDiv.className = "level-queued";
+    createNewDiv.textContent = buttonText;
+    document.querySelector(labelClass)?.appendChild(createNewDiv);
+  }
+
   async callElevator(destination: Level) {
     const elevator = this.pickupElevator(destination);
 
     elevator.levelsToGoTo.push(destination);
+    this.addLevelToGoLabel(destination.value.toString(), `label`);
 
-    if(elevator.levelsToGoTo.length === 1){
+    if (elevator.levelsToGoTo.length === 1) {
       await elevator.move();
     }
   }
-  
   async callElevatorBy(elevatorId: string, destination: Level) {
-    const elevator = this.elevators.find(e => e.id === elevatorId);
-    
-    if(!elevator){
+    const elevator = this.elevators.find((e) => e.id === elevatorId);
+
+    if (!elevator) {
       console.log(`Unkown elevator: ${elevatorId}`);
       return;
     }
 
     elevator.levelsToGoTo.push(destination);
+    this.addLevelToGoLabel(
+      destination.value.toString(),
+      `.${elevatorId}-label`
+    );
 
-    if(elevator.levelsToGoTo.length === 1){
+    if (elevator.levelsToGoTo.length === 1) {
       await elevator.move();
     }
   }
@@ -113,7 +124,6 @@ export class Elevator {
   levelsToGoTo: Level[];
   currentLevel: Level;
 
-
   getId(): string {
     return this.id;
   }
@@ -125,22 +135,29 @@ export class Elevator {
   setLevel(levelValue: number) {
     this.currentLevel.value = levelValue;
   }
-  
-  getState(): State{
-    return this.levelsToGoTo.length === 0? State.Available: State.Moving
+
+  getState(): State {
+    return this.levelsToGoTo.length === 0 ? State.Available : State.Moving;
+  }
+
+  private removeDestination(labelClass: string) {
+    const divChild = document.querySelector(labelClass);
+    divChild?.removeChild(divChild.querySelectorAll("div")[0]);
   }
 
   async move() {
-    while(this.levelsToGoTo.length > 0){
+    while (this.levelsToGoTo.length > 0) {
       await this.moveToLevel(this.levelsToGoTo[0]);
+
       this.levelsToGoTo.shift();
+      this.removeDestination(`.${this.id}-label`);
     }
   }
 
   private async moveToLevel(destination: Level) {
-    const direction = this.currentLevel.value > destination.value? (-1): 1;
-    
-    while(this.currentLevel.value !== destination.value){
+    const direction = this.currentLevel.value > destination.value ? -1 : 1;
+
+    while (this.currentLevel.value !== destination.value) {
       await this.moveByOneLevel(direction);
     }
   }
@@ -148,12 +165,13 @@ export class Elevator {
   private async moveByOneLevel(direction: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
-       this.currentLevel.value = this.currentLevel.value + direction;
-        console.log(`i am elevator ${this.id} and i am now at level ${this.currentLevel.value}`);
+        this.currentLevel.value = this.currentLevel.value + direction;
+        console.log(
+          `i am elevator ${this.id} and i am now at level ${this.currentLevel.value}`
+        );
         resolve();
       }, 2000);
     });
-    
   }
 }
 
@@ -165,5 +183,3 @@ export enum State {
   Available = "Available",
   Moving = "Moving",
 }
-
-

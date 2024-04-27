@@ -17,7 +17,7 @@
 				<div class="elevator-system">
 					<div class="elevator-controls mr-3">
 						<!-- Internal Elevator Buttons for Elevator 1 -->
-						<div class="elevator-buttons ">
+						<div class="elevator-buttons left-buttons">
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="6">6</button>
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="5">5</button>
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="4">4</button>
@@ -29,9 +29,7 @@
 						</div>
 						<div class="queue-display  mt-2" id="queue1">
 							<label>Levels To Go: </label>
-							<div class="queued-levels border border-primary p-2">
-								<div class = "level-queued">1</div>
-								<div class = "level-queued">4</div>
+							<div class="queued-levels border border-primary p-2 one-label">
 							</div>
 						</div>
 					</div>
@@ -58,7 +56,7 @@
 					</div>
 					<div class="elevator-controls  ml-3">
 						<!-- Internal Elevator Buttons for Elevator 2 -->
-						<div class="elevator-buttons">
+						<div class="elevator-buttons right-buttons">
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="6">6</button>
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="5">5</button>
 							<button type="button" class="elevator-button btn btn-sm btn-primary" data-elevator="1" data-floor="4">4</button>
@@ -69,16 +67,12 @@
 						</div>
 						<div class="queue-display mt-2" id="queue2">  
 							<label>Levels To Go: </label>
-							<div class="queued-levels border border-primary p-2">
-								<div class = "level-queued">1</div>
-								<div class = "level-queued">4</div>
-								<div class = "level-queued">1</div>
-								<div class = "level-queued">4</div>
+							<div class="queued-levels border border-primary p-2 two-label">
 							</div>
 						</div>
 				</div>
 			</div>
 		</div>
-		<script src="elevator.js"></script>
+		<script type="module" src="../build/src/index.js"></script>
 	</body>
 </html>
